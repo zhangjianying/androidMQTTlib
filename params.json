@@ -1,0 +1,1 @@
+{"name":"Androidmqttlib","tagline":"快速集成MQTT协议到Android客户端","body":"androidMQTTlib\r\n==============\r\n\r\n快速集成MQTT协议到Android客户端,你要做的仅仅是集成几个类,然后实现消息到达的回调类即可.\r\n1. 开发环境\r\n2. 使用步骤\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
