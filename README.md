@@ -113,24 +113,19 @@ public class MsgReceive extends AbsMQTTReceive {
    只是不把应用加到白名单的话,360等安全软件会阻止服务起来.鉴于360白名单比较明显,这里只
    针对miui说一下设置方式:
    假设开发的程序名叫:mqttsmple
+   
    ![mahua](http://t29-2.yunpan.360.cn/p/800-600.0c0960c6a8ac59da445e52ed9f29af81078437ea.411154.jpg?t=8320ea97142b9ebce772fe50bb11d098&d=20131116)
    
    在图片序号5可以发现,利用该框架的应用[手机经分],在正确设置白名单后.已经正常运行15个小时
 
 2)网络断网后会继续连接么?
 
-    会的,有断网重连机制
+会的,有断网重连机制
 
 3)发送的信息会丢失么?
   
   定于消息主题决定你的消息策略 SubscribeEntry.QOS_2,是丢失还是必须送达
-  ```java
-      SubscribeEntry sub1 = new SubscribeEntry("ALL_SUB",
-				SubscribeEntry.QOS_2); // 自定义 全局主题
-		SubscribeEntry sub2 = new SubscribeEntry("SINGLE/13975151697",
-				SubscribeEntry.QOS_2); // 自定义 个人主题 根据USERNAME识别
-		ArrayList<SubscribeEntry> list = new ArrayList<SubscribeEntry>();
-    ```
+  
   可参考 [@这里](http://www.eclipse.org/paho/files/mqttdoc/Cclient/qos.html)
 
 4)服务器端你用的是m2m.eclipse.org,需要搭建私有服务器怎么做?
@@ -142,6 +137,5 @@ public class MsgReceive extends AbsMQTTReceive {
 
 5)通信安全怎么做?
 
-     可以在服务器端设置哪些用户有写主题的权限或者通过通信协议本身来效验.本框架不考虑安全问题
+可以在服务器端设置哪些用户有写主题的权限或者通过通信协议本身来效验.本框架不考虑安全问题
   
-
