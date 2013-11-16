@@ -5,22 +5,22 @@ androidMQTTlib
 
 然后实现消息到达的回调类即可.
 
-##开发工具
+##开发工具(Tools)
 
 * `Eclipse4.3` [@下载](http://eclipse.org)
 * `ADT v22`[@下载](http://developer.android.com/tools/sdk/eclipse-adt.html)
 
-##使用的第三方库
+##使用的第三方库(Use a third-party library)
 * `Eclipse MQTTT lib` [@主页](http://www.eclipse.org/paho/)
 * `fastjson` [@主页](http://code.alibabatech.com/wiki/display/FastJSON/Documentation)
 
-##集成方式
-1) 引入本包并添加依赖包 到项目的libs目录下
+##集成方式(The integration steps)
+1) 引入本包并添加依赖包 到项目的libs目录下(Add jars to project libs folder )
 ![mahua](http://t29-3.yunpan.360.cn/p/800-600.9ca48a6acae0370d8221f10cf7c7fd157ce6cdad.e805db.jpg?t=8320ea97142b9ebce772fe50bb11d098&d=20131116)
 
 2)在项目中主Activity 和 Application类 分别继承 
 
-com.zsofware.androidMqttLib.activity 和 com.zsofware.androidMqttLib.app.MqttApp :
+com.zsofware.androidMqttLib.activity.MqttActivity 和 com.zsofware.androidMqttLib.app.MqttApp (extends MqttActivity and  MqttApp):
 
 ```java
  public class MyAppMainActivity extends MqttActivity {
@@ -32,7 +32,7 @@ com.zsofware.androidMqttLib.activity 和 com.zsofware.androidMqttLib.app.MqttApp
 
  }
 ```
-3)修改AndroidManifest.xml配置文件,增加service节点,将MyApp添加到xml中的application节点后再添加
+3)修改AndroidManifest.xml配置文件,增加service节点,将MyApp添加到xml中的application节点后再添加(modif AndroidManifest.xml,add application[android:name] and service config)
 
 ```xml
  <service
@@ -47,7 +47,7 @@ com.zsofware.androidMqttLib.activity 和 com.zsofware.androidMqttLib.app.MqttApp
         </service>
 ```
 
-4)实现一个消息到达后的处理类,该类必须继承com.zsofware.androidMqttLib.service,
+4)实现一个消息到达后的处理类,该类必须继承com.zsofware.androidMqttLib.service (the action callback Class),
 
 如:
 ```java
@@ -68,7 +68,7 @@ public class MsgReceive extends AbsMQTTReceive {
 
 }
 ```
-5)最后...是启动服务,给必要的服务启动参数
+5)最后...是启动服务,给必要的服务启动参数(setting the basic information)
 ```java
  public class MyAppMainActivity extends MqttApp {
     private static String	DEBUG_TAG	= "SMPLE_MainActivity";
