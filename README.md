@@ -118,15 +118,18 @@ public class MsgReceive extends AbsMQTTReceive {
    
    在图片序号5可以发现,利用该框架的应用[手机经分],在正确设置白名单后.已经正常运行15个小时
 
+
 2)网络断网后会继续连接么?
 
 会的,有断网重连机制
+
 
 3)发送的信息会丢失么?
   
   定于消息主题决定你的消息策略 SubscribeEntry.QOS_2,是丢失还是必须送达
   
   可参考 [@这里](http://www.eclipse.org/paho/files/mqttdoc/Cclient/qos.html)
+
 
 4)服务器端你用的是m2m.eclipse.org,需要搭建私有服务器怎么做?
    太多了.
@@ -135,7 +138,12 @@ public class MsgReceive extends AbsMQTTReceive {
 * moquette-mqtt(JAVA) [@主页](https://code.google.com/p/moquette-mqtt/)
 * 其他请google
 
+
 5)通信安全怎么做?
 
 可以在服务器端设置哪些用户有写主题的权限或者通过通信协议本身来效验.本框架不考虑安全问题
   
+6) FIELD_PROJECT参数有什么用?
+ 
+ 在同一台终端中如果有多个应用使用本框架,为了让同一Broker(服务器)识别,则必须设定不同的4位项目代号.
+ 要不就会进入无尽的互踢掉线模式
