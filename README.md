@@ -87,7 +87,7 @@ public class MsgReceive extends AbsMQTTReceive {
 		// 订阅主题
 		SubscribeEntry sub1 = new SubscribeEntry("ALL_SUB",
 				SubscribeEntry.QOS_2); // 自定义 全局主题
-		SubscribeEntry sub2 = new SubscribeEntry("SINGLE/13975151697",
+		SubscribeEntry sub2 = new SubscribeEntry("SINGLE/139****1697",
 				SubscribeEntry.QOS_2); // 自定义 个人主题 根据USERNAME识别
 		ArrayList<SubscribeEntry> list = new ArrayList<SubscribeEntry>();
 		list.add(sub1);
