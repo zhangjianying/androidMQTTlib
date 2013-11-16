@@ -147,3 +147,43 @@ public class MsgReceive extends AbsMQTTReceive {
  
  在同一台终端中如果有多个应用使用本框架,为了让同一Broker(服务器)识别,则必须设定不同的4位项目代号.
  要不就会进入无尽的互踢掉线模式
+ 
+7)怎么测试收到推送信息?
+  
+  这里我直接贴出发送信息的代码.请加上依赖包 org.eclipse.paho.client.mqttv3.jar
+  
+```java
+  public class Test {
+	static boolean	MQTT_CLEAN_SESSION	= true;
+
+	public static void main(String[] args) throws MqttException,
+			UnsupportedEncodingException {
+		MemoryPersistence mMemStore = new MemoryPersistence();
+
+		MqttConnectOptions mOpts = new MqttConnectOptions();
+		String userName = "admin";
+		String passWord = "test";
+		mOpts.setCleanSession(false);
+		mOpts.setUserName(userName);
+		mOpts.setPassword(passWord.toCharArray());
+		final MqttClient mClient = new MqttClient("tcp://m2m.eclipse.org:1883",
+				"and1213887383", mMemStore);
+		mClient.connect(mOpts);
+		System.out.println("isConnected = " + mClient.isConnected());
+		MqttTopic presenceTopic = mClient.getTopic(String.format(Locale.US,
+				"SINGLE/139****1697", "and1213887383")); //主题
+		Random r = new Random();
+		MqttMessage message = new MqttMessage(
+				("{\"id\":\"M000001\", \"date\":\"1397209323\", \"content\":\"预存营销-120元的10元流量套餐年包减免优惠(2013年“两节”促销)\"}")
+						.getBytes("UTF-8"));
+		message.setQos(2);
+		presenceTopic.publish(message);
+
+		try {
+			mClient.disconnect();
+		} catch (MqttException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
