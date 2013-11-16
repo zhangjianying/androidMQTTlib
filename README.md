@@ -32,7 +32,7 @@ com.zsofware.androidMqttLib.activity 和 com.zsofware.androidMqttLib.app.MqttApp
 
  }
 ```
-3)修改AndroidManifest.xml配置文件,增加service节点
+3)修改AndroidManifest.xml配置文件,增加service节点,将MyApp添加到xml中的application节点后再添加
 
 ```xml
  <service
@@ -41,7 +41,7 @@ com.zsofware.androidMqttLib.activity 和 com.zsofware.androidMqttLib.app.MqttApp
             android:priority="1000"
              >
             <intent-filter>
-                <action android:name="com.talkweb.mbi.mqtt" /><!--根据你需要定义该名称,该名称也是服务启动名称-->
+                <action android:name="com.zsoftware.mqttservice" /><!--根据你需要定义该名称,该名称也是服务启动名称-->
                 <category android:name="android.intent.category.default" />
             </intent-filter>
         </service>
