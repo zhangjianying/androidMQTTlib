@@ -1,5 +1,7 @@
 package com.zsofware.androidMqttLib.service;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+
 import android.content.Context;
 
 public abstract class AbsMQTTReceive {
@@ -17,5 +19,5 @@ public abstract class AbsMQTTReceive {
 	 *            false --当前主窗体 true --service触发
 	 */
 	public abstract void MsgReceive(Context context, String topicName,
-			String msg, boolean notifyShowing);
+			String msg, boolean notifyShowing,MqttClient client);
 }

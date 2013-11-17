@@ -240,7 +240,7 @@ public class MqttService extends Service implements MqttCallback {
 									if (mqttApp.getMainContext() != null) {
 										absMqttReceive.MsgReceive(
 												mqttApp.getMainContext(),
-												topicname, send_msg, false);
+												topicname, send_msg, false,mClient);
 									} else {
 										Log.i(DEBUG_TAG,
 												"handleMessage by service");
@@ -248,7 +248,7 @@ public class MqttService extends Service implements MqttCallback {
 										// mqttApp.getIMQTTReceiveListener()
 										absMqttReceive.MsgReceive(
 												serviceContext, topicname,
-												send_msg, true);
+												send_msg, true,mClient);
 									}
 								} catch (ClassNotFoundException e) {
 									e.printStackTrace();
