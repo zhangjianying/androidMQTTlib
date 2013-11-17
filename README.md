@@ -1,5 +1,5 @@
-androidMQTTlib
-==============
+#androidMQTTlib
+------
 
 快速集成MQTT协议到Android客户端,你要做的仅仅是集成几个类,
 
@@ -10,10 +10,13 @@ androidMQTTlib
 * `Eclipse4.3` [@下载](http://eclipse.org)
 * `ADT v22`[@下载](http://developer.android.com/tools/sdk/eclipse-adt.html)
 
+------
+
 ##使用的第三方库(Use a third-party library)
 * `Eclipse MQTTT lib` [@主页](http://www.eclipse.org/paho/)
 * `fastjson` [@主页](http://code.alibabatech.com/wiki/display/FastJSON/Documentation)
 
+------
 ##集成方式(The integration steps)
 1) 引入本包并添加依赖包 到项目的libs目录下(Add jars to project libs folder )
 ![mahua](http://t29-3.yunpan.360.cn/p/800-600.9ca48a6acae0370d8221f10cf7c7fd157ce6cdad.e805db.jpg?t=8320ea97142b9ebce772fe50bb11d098&d=20131116)
@@ -54,12 +57,13 @@ com.zsofware.androidMqttLib.activity.MqttActivity 和 com.zsofware.androidMqttLi
 import android.content.Context;
 import android.util.Log;
 import com.zsofware.androidMqttLib.service.AbsMQTTReceive;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 public class MsgReceive extends AbsMQTTReceive {
-    private static String	DEBUG_TAG	= "MsgReceive";
+    private static String    DEBUG_TAG	= "MsgReceive";
 
 	@Override
 	public void MsgReceive(Context context, String topicName, String msg,
-			boolean notifyShowing) {
+			boolean notifyShowing,,MqttClient client) {
 		Log.d(DEBUG_TAG, String.format("MsgReceive [%s]  [%s] [%s]", topicName,
 				msg, notifyShowing));
     //notifyShowing = true ,则表示程序可能已经到后台或者被回收,当前的Context是service
@@ -107,8 +111,10 @@ public class MsgReceive extends AbsMQTTReceive {
  }
 ```
 
+------
 ##常见问题
-1) 服务启动到后台经常被杀掉了?
+###1) **服务启动到后台经常被杀掉了?**
+
    这个需要设置一下内存回收软件如360手机安全卫士等.MQTTService本身会自动重新自动,
    只是不把应用加到白名单的话,360等安全软件会阻止服务起来.鉴于360白名单比较明显,这里只
    针对miui说一下设置方式:
@@ -119,36 +125,39 @@ public class MsgReceive extends AbsMQTTReceive {
    在图片序号5可以发现,利用该框架的应用[手机经分],在正确设置白名单后.已经正常运行15个小时
 
 
-2)网络断网后会继续连接么?
+
+
+###2)**网络断网后会继续连接么?**
 
 会的,有断网重连机制
 
 
-3)发送的信息会丢失么?
+###3)**发送的信息会丢失么?**
   
   定于消息主题决定你的消息策略 SubscribeEntry.QOS_2,是丢失还是必须送达
   
   可参考 [@这里](http://www.eclipse.org/paho/files/mqttdoc/Cclient/qos.html)
 
 
-4)服务器端你用的是m2m.eclipse.org,需要搭建私有服务器怎么做?
-   太多了.
+###4)**服务器端你用的是m2m.eclipse.org,需要搭建私有服务器怎么做?**
+  
+  可以参考:
     
 * mosquitto [@主页](http://mosquitto.org/)
 * moquette-mqtt(JAVA) [@主页](https://code.google.com/p/moquette-mqtt/)
 * 其他请google
 
 
-5)通信安全怎么做?
+###5) **通信安全怎么做?**
 
 可以在服务器端设置哪些用户有写主题的权限或者通过通信协议本身来效验.本框架不考虑安全问题
   
-6) FIELD_PROJECT参数有什么用?
+###6) **FIELD_PROJECT参数有什么用?**
  
  在同一台终端中如果有多个应用使用本框架,为了让同一Broker(服务器)识别,则必须设定不同的4位项目代号.
  要不就会进入无尽的互踢掉线模式
  
-7)怎么测试收到推送信息?
+###7)**怎么测试收到推送信息?**
   
   这里我直接贴出发送信息的代码.请加上依赖包 org.eclipse.paho.client.mqttv3.jar
   
@@ -186,4 +195,12 @@ public class MsgReceive extends AbsMQTTReceive {
 		}
 	}
 }
+```
+
+###8) **连不上服务器?**
+
+检查你的服务器是否有开启,然后检查你是不是在AndroidManifest.xml中添加了联网权限
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
 ```
