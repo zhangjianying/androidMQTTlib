@@ -17,7 +17,7 @@ public class MqttActivity extends Activity {
 		super.finish();
 	}
 
-	public void setMQTTReceive(Class clz) throws ClassNotFoundException,
+	public void setMQTTReceive(Class<? extends AbsMQTTReceive> clz) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		Log.i(DEBUG_TAG, String.format("%s", clz.getName()));
 
