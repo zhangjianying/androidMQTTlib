@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class ClassHelper {
 
-	HashMap<String, Object>	cacheMap	= new HashMap<String, Object>();
+	private static HashMap<String, Object>	cacheMap	= new HashMap<String, Object>();
 
 	public static Object newInstance(String clz) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
-		
+
 		return newInstance(clz, false);
 	}
 
@@ -16,12 +16,15 @@ public class ClassHelper {
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException {
 		Object retVal = null;
-		if (useCache) {
-		} else {
-			Class<?> forName = Class.forName(clz);
-			retVal = forName.newInstance();
+		if (useCache && cacheMap.containsKey(clz)) {
+			return cacheMap.get(clz);
 		}
-		
+		Class<?> forName = Class.forName(clz);
+		retVal = forName.newInstance();
+
+		if (!cacheMap.containsKey(clz) && retVal != null) {
+			cacheMap.put(clz, retVal);
+		}
 		return retVal;
 	}
 }
