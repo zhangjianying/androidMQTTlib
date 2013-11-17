@@ -22,7 +22,7 @@ public class MqttActivity extends Activity {
 		Log.i(DEBUG_TAG, String.format("%s", clz.getName()));
 
 		// 这里只是为了检查可以生成对象,如果不能也可以及时抛出异常给前端界面
-		Object newInstance = ClassHelper.newInstance(clz.getName());
+		Object newInstance = ClassHelper.newInstance(clz.getName(),true);
 		if (!(newInstance instanceof AbsMQTTReceive)) {
 			throw new InstantiationException("必须是 AbsMQTTReceive 的实现类");
 		}
