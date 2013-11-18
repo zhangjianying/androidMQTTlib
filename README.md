@@ -19,7 +19,8 @@
 ------
 ##集成方式(The integration steps)
 1) 引入本包并添加依赖包 到项目的libs目录下(Add jars to project libs folder )
-![mahua](http://zhangjianying.github.io/androidMQTTlib/img/1.jpg)
+
+![package](http://zhangjianying.github.io/androidMQTTlib/img/1.jpg)
 
 2)在项目中主Activity 和 Application类 分别继承 
 
