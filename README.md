@@ -19,7 +19,7 @@
 ------
 ##集成方式(The integration steps)
 1) 引入本包并添加依赖包 到项目的libs目录下(Add jars to project libs folder )
-![mahua](http://t29-3.yunpan.360.cn/p/800-600.9ca48a6acae0370d8221f10cf7c7fd157ce6cdad.e805db.jpg?t=8320ea97142b9ebce772fe50bb11d098&d=20131116)
+![mahua](http://zhangjianying.github.io/androidMQTTlib/img/1.jpg)
 
 2)在项目中主Activity 和 Application类 分别继承 
 
@@ -120,7 +120,7 @@ public class MsgReceive extends AbsMQTTReceive {
    针对miui说一下设置方式:
    假设开发的程序名叫:mqttsmple
    
-   ![mahua](http://t29-2.yunpan.360.cn/p/800-600.0c0960c6a8ac59da445e52ed9f29af81078437ea.411154.jpg?t=8320ea97142b9ebce772fe50bb11d098&d=20131116)
+   ![mahua](http://zhangjianying.github.io/androidMQTTlib/img/all213213.jpg.jpg)
    
    在图片序号5可以发现,利用该框架的应用[手机经分],在正确设置白名单后.已经正常运行15个小时
 
