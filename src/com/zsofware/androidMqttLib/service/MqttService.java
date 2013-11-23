@@ -40,7 +40,7 @@ public class MqttService extends Service implements MqttCallback {
 
 	public static final String			FIELD_USERNAME						= "USERNAME";					// 用户名
 	public static final String			FIELD_BROKER						= "BROKER";					// mqtt
-																											// 服务器地址
+	public static final String			FIELD_PASSWORD						= "PASSWORD";															// 服务器地址
 	public static final String			FIELD_PROJECT						= "PROJECT";					// 项目名称
 	public static final String			FIELD_SUBSCRIBELIST					= "SUBSCRIBELIST";
 	private static final String			FIELD_ACTIONNAME					= "ACTIONNAME";
@@ -58,8 +58,9 @@ public class MqttService extends Service implements MqttCallback {
 
 	private String						PROJECT								= "";
 	private String						MQTT_BROKER							= "";
-	private int							MQTT_PORT							= 1883;
+	private int							MQTT_PORT							= 3456;
 	private String						USERNAME							= "";
+	private String						PASSWORD							= "";
 	private boolean						CLEANSESSIONFLAG					= false;
 	private boolean						mStarted							= false;						// 服务当前状态
 	private HandlerThread				MSGhandlerThread					= new HandlerThread(
@@ -91,6 +92,7 @@ public class MqttService extends Service implements MqttCallback {
 	 */
 	private void readBaseParam() {
 		USERNAME = stroeInfo.getString(FIELD_USERNAME, null);
+		PASSWORD = stroeInfo.getString(FIELD_PASSWORD, null);
 		PROJECT = stroeInfo.getString(FIELD_PROJECT, null);
 		MQTT_BROKER = stroeInfo.getString(FIELD_BROKER, null);
 
@@ -165,6 +167,12 @@ public class MqttService extends Service implements MqttCallback {
 				INITIATIVE_EXIT = true;
 				stopSelf();
 			}
+			
+			if (StringHelper.isEmpty(extras.getString(FIELD_PASSWORD))) {
+				Log.w(DEBUG_TAG, "FIELD_PASSWORD 为空");
+				INITIATIVE_EXIT = true;
+				stopSelf();
+			}
 			if (StringHelper.isEmpty(extras.getString(FIELD_PROJECT))) {
 				Log.w(DEBUG_TAG, "FIELD_PROJECT 为空");
 				INITIATIVE_EXIT = true;
@@ -196,6 +204,7 @@ public class MqttService extends Service implements MqttCallback {
 			editor.putString(FIELD_USERNAME, extras.getString(FIELD_USERNAME));
 			editor.putString(FIELD_PROJECT, extras.getString(FIELD_PROJECT));
 			editor.putString(FIELD_BROKER, extras.getString(FIELD_BROKER));
+			editor.putString(FIELD_PASSWORD, extras.getString(FIELD_PASSWORD));
 
 			// 保存 Sublist 数组,偷个懒直接转成JSON字符串再存
 			editor.putString(FIELD_SUBSCRIBELIST, JSON.toJSONString(Sublist));
@@ -276,7 +285,7 @@ public class MqttService extends Service implements MqttCallback {
 
 		mOpts = new MqttConnectOptions();
 		mOpts.setUserName(USERNAME);
-		mOpts.setPassword(USERNAME.toCharArray());
+		mOpts.setPassword(PASSWORD.toCharArray());
 		mOpts.setCleanSession(CLEANSESSIONFLAG);
 
 		String url = String.format(Locale.CHINA, MQTT_URL_FORMAT, MQTT_BROKER,
