@@ -144,8 +144,8 @@ public class MsgReceive extends AbsMQTTReceive {
   
   可以参考:
     
-* mosquitto [@主页](http://mosquitto.org/)
-* moquette-mqtt(JAVA) [@主页](https://code.google.com/p/moquette-mqtt/)
+* mosquitto(推荐) [@主页](http://mosquitto.org/)
+* Apache ActiveMQ(推荐) [@主页](http://activemq.apache.org/)
 * 其他请google
 
 
