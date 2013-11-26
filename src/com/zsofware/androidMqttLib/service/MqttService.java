@@ -40,9 +40,10 @@ public class MqttService extends Service implements MqttCallback {
 
 	public static final String			FIELD_USERNAME						= "USERNAME";					// 用户名
 	public static final String			FIELD_BROKER						= "BROKER";					// mqtt
-	public static final String			FIELD_PASSWORD						= "PASSWORD";															// 服务器地址
+	public static final String			FIELD_PASSWORD						= "PASSWORD";					// 服务器地址
 	public static final String			FIELD_PROJECT						= "PROJECT";					// 项目名称
 	public static final String			FIELD_SUBSCRIBELIST					= "SUBSCRIBELIST";
+	public static final String			FIELD_PROT							= "PROT";
 	private static final String			FIELD_ACTIONNAME					= "ACTIONNAME";
 	private static final String			FIELD_RECEIVE_CALLBACK_CLASSNAME	= "RECEIVE_CALLBACK_CLASSNAME";
 
@@ -58,7 +59,7 @@ public class MqttService extends Service implements MqttCallback {
 
 	private String						PROJECT								= "";
 	private String						MQTT_BROKER							= "";
-	private int							MQTT_PORT							= 3456;
+	private int							MQTT_PORT							= 1883;
 	private String						USERNAME							= "";
 	private String						PASSWORD							= "";
 	private boolean						CLEANSESSIONFLAG					= false;
@@ -97,6 +98,7 @@ public class MqttService extends Service implements MqttCallback {
 		MQTT_BROKER = stroeInfo.getString(FIELD_BROKER, null);
 
 		ACTION_NAME = stroeInfo.getString(FIELD_ACTIONNAME, null);
+		MQTT_PORT = Integer.parseInt(stroeInfo.getString(FIELD_PROT, "1883"));
 
 		// 回调处理类
 		ReceiveClassName = stroeInfo.getString(
@@ -167,7 +169,7 @@ public class MqttService extends Service implements MqttCallback {
 				INITIATIVE_EXIT = true;
 				stopSelf();
 			}
-			
+
 			if (StringHelper.isEmpty(extras.getString(FIELD_PASSWORD))) {
 				Log.w(DEBUG_TAG, "FIELD_PASSWORD 为空");
 				INITIATIVE_EXIT = true;
@@ -205,6 +207,7 @@ public class MqttService extends Service implements MqttCallback {
 			editor.putString(FIELD_PROJECT, extras.getString(FIELD_PROJECT));
 			editor.putString(FIELD_BROKER, extras.getString(FIELD_BROKER));
 			editor.putString(FIELD_PASSWORD, extras.getString(FIELD_PASSWORD));
+			editor.putString(FIELD_PROT, extras.getString(FIELD_PROT));
 
 			// 保存 Sublist 数组,偷个懒直接转成JSON字符串再存
 			editor.putString(FIELD_SUBSCRIBELIST, JSON.toJSONString(Sublist));
@@ -249,7 +252,8 @@ public class MqttService extends Service implements MqttCallback {
 									if (mqttApp.getMainContext() != null) {
 										absMqttReceive.MsgReceive(
 												mqttApp.getMainContext(),
-												topicname, send_msg, false,mClient);
+												topicname, send_msg, false,
+												mClient);
 									} else {
 										Log.i(DEBUG_TAG,
 												"handleMessage by service");
@@ -257,7 +261,7 @@ public class MqttService extends Service implements MqttCallback {
 										// mqttApp.getIMQTTReceiveListener()
 										absMqttReceive.MsgReceive(
 												serviceContext, topicname,
-												send_msg, true,mClient);
+												send_msg, true, mClient);
 									}
 								} catch (ClassNotFoundException e) {
 									e.printStackTrace();

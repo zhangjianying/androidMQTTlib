@@ -89,6 +89,8 @@ public class MsgReceive extends AbsMQTTReceive {
 		b.putString(MqttService.FIELD_PROJECT, "CMCC"); // 项目名称 只能必须是4位唯一代码
 		b.putString(MqttService.FIELD_BROKER, "m2m.eclipse.org"); // MQTT Server
 		b.putString(MqttService.FIELD_USERNAME, "139****1697"); // 用户名
+		b.putString(MqttService.FIELD_PASSWORD, "密码"); // 密码
+		b.putString(MqttService.FIELD_PROT, "1883"); // 端口
 		// 订阅主题
 		SubscribeEntry sub1 = new SubscribeEntry("ALL_SUB",
 				SubscribeEntry.QOS_2); // 自定义 全局主题
